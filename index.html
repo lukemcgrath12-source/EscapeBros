@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escape Bros | Group Trips and Event Weekends Organised for You</title>
+<meta name="description" content="Golf weekends, footy trips, Magic Round, surf trips and corporate escapes. Tell us where, when and how many. We handle the rest.">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+<link rel="canonical" href="https://escapebros.com.au/">
+<meta property="og:title" content="Escape Bros | We organise. You enjoy.">
+<meta property="og:description" content="Group trips and event weekends, organised end to end. Tell us the plan and we build it around your group.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://escapebros.com.au/">
+<meta property="og:image" content="https://escapebros.com.au/images/trip-golf.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#51AEEB;
+    --blue-dk:#2E8ACB;
+    --navy:#0E1F38;
+    --ink:#111820;
+    --body:#5B6673;
+    --paper:#FCFCFC;
+    --line:#E4E7EB;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       color:var(--body);line-height:1.65;font-size:16px;background:var(--paper);
+       overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--navy);color:#fff}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{color:var(--navy);line-height:1.06;font-weight:600;letter-spacing:-.03em}
+
+  /* mono micro type, the thing that stops it reading as a template */
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;
+        letter-spacing:.2em;text-transform:uppercase}
+  .idx{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .idx .n{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--blue-dk)}
+  .idx .l{flex:1;max-width:64px;height:1px;background:rgba(14,31,56,.22)}
+  .idx .t{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;
+          text-transform:uppercase;color:var(--navy);font-weight:500}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:60;background:rgba(14,31,56,.97);backdrop-filter:blur(8px)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  header .logo{height:36px;width:auto}
+  header nav{display:none;align-items:center;gap:30px}
+  header nav a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+               text-transform:uppercase;color:#93A6BC;transition:color .3s}
+  header nav a:hover{color:#fff}
+  .navcta{background:var(--blue);color:#fff;padding:10px 17px;border-radius:4px;
+          font-size:12px;font-weight:600;letter-spacing:.02em}
+  .burger{display:flex;flex-direction:column;gap:6px;background:none;border:0;cursor:pointer;padding:6px}
+  .burger span{width:26px;height:1.5px;background:#fff;transition:all .3s}
+  .burger.on span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .burger.on span:nth-child(2){transform:translateY(-7.5px) rotate(-45deg)}
+  #mob{display:none;background:var(--navy);border-top:1px solid rgba(255,255,255,.1)}
+  #mob.on{display:block}
+  #mob a{display:block;padding:16px 22px;color:#B9C4D2;font-family:'JetBrains Mono',monospace;
+         font-size:11px;letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.07)}
+
+  /* HERO: scroll stage */
+  .stage{position:relative;height:420vh;background:var(--blue)}
+  .pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;
+       flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .layers{position:absolute;inset:0}
+  .layers img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+              opacity:0;will-change:opacity,transform;filter:blur(4px) saturate(1.25)}
+  .tint{position:absolute;inset:0;
+        background:linear-gradient(180deg,rgba(81,174,235,.72) 0%,rgba(30,102,157,.86) 100%)}
+  .vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,
+        rgba(0,0,0,0) 40%,rgba(9,32,56,.42) 100%)}
+  .pinin{position:relative;z-index:3;padding:0 22px;width:100%;max-width:1240px;margin:0 auto}
+  .pinin .mark{width:min(70vw,380px);margin:0 auto 26px;
+               filter:drop-shadow(0 10px 30px rgba(9,32,56,.35))}
+  .pinin .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;
+              text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:20px}
+  .pinin h1{color:#fff;font-size:29px;line-height:1.1;letter-spacing:-.03em;
+            max-width:17ch;margin:0 auto}
+  .pinin .btns{margin-top:26px;display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+  .btn{display:inline-block;background:#fff;color:var(--blue-dk);font-weight:600;font-size:15px;
+       padding:15px 28px;border-radius:5px;border:0;cursor:pointer;transition:all .35s var(--ease)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(9,32,56,.22)}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+  .btn.ghost:hover{background:rgba(255,255,255,.14);box-shadow:none}
+  .ticker{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 22px 34px;
+          display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+          max-width:1240px;margin:0 auto}
+  .ticker .now{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;
+               text-transform:uppercase;color:rgba(255,255,255,.72);text-align:left;
+               display:flex;align-items:baseline;gap:12px;line-height:1.4}
+  .ticker .now b{font-size:13px;letter-spacing:.18em;font-weight:500;color:#fff}
+  .ticker .cue{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.24em;
+               text-transform:uppercase;color:rgba(255,255,255,.72);display:flex;
+               align-items:center;gap:9px}
+  .ticker .cue i{display:block;width:1px;height:26px;background:rgba(255,255,255,.55);
+                 animation:drop 1.8s var(--ease) infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}
+                  50%{transform:scaleY(1);transform-origin:top}
+                  51%{transform:scaleY(1);transform-origin:bottom}
+                  100%{transform:scaleY(0);transform-origin:bottom}}
+  .bars{position:absolute;left:22px;right:22px;bottom:20px;z-index:4;display:flex;gap:5px;
+        max-width:1240px;margin:0 auto}
+  .bars span{flex:1;height:2px;background:rgba(255,255,255,.28);overflow:hidden}
+  .bars span i{display:block;height:100%;width:0;background:#fff}
+
+  /* SECTIONS */
+  section{padding:72px 0}
+  .dark{background:var(--navy);color:#93A6BC}
+  .dark h2,.dark h3{color:#fff}
+  .dark .idx .t{color:#fff}
+  .dark .idx .n{color:var(--blue)}
+  .dark .idx .l{background:rgba(255,255,255,.25)}
+  .display{font-size:34px;line-height:1.08;letter-spacing:-.035em;max-width:16ch}
+  .sub{margin-top:20px;font-size:16px;max-width:46ch}
+
+  /* PAIN, editorial numbered list */
+  .pain{margin-top:40px;border-top:1px solid var(--line)}
+  .pain li{list-style:none;border-bottom:1px solid var(--line);padding:20px 0;
+           display:flex;gap:18px;align-items:baseline}
+  .pain li .n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
+              color:var(--blue-dk);flex:0 0 26px}
+  .pain li p{font-size:17px;color:var(--ink);line-height:1.5;letter-spacing:-.01em}
+
+  /* STEPS */
+  .steps{margin-top:44px;border-top:1px solid rgba(255,255,255,.14)}
+  .step{border-bottom:1px solid rgba(255,255,255,.14);padding:26px 0}
+  .step .n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;
+           color:var(--blue);margin-bottom:9px;display:block}
+  .step h3{font-size:21px;margin-bottom:8px;letter-spacing:-.02em}
+  .step p{font-size:15px;max-width:52ch}
+
+  /* TRIP LIST, the chapter pattern */
+  .chapters{margin-top:44px;display:flex;flex-direction:column-reverse;gap:0}
+  .chaplist{border-top:1px solid var(--line)}
+  .chap{border-bottom:1px solid var(--line);padding:22px 0;display:flex;align-items:center;
+        gap:16px;cursor:pointer;transition:color .3s;color:#A9B2BC}
+  .chap.on{color:var(--navy)}
+  .chap:hover{color:var(--navy)}
+  .chap .n{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;flex:0 0 30px;opacity:.7}
+  .chap h3{font-size:25px;font-weight:600;letter-spacing:-.03em;color:inherit;flex:1;line-height:1.15}
+  .chap .arw{opacity:0;transform:translate(-6px,6px);transition:all .4s var(--ease);
+             font-size:20px;color:var(--blue-dk)}
+  .chap.on .arw{opacity:1;transform:none}
+  .chapstage{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;
+             background:var(--navy);margin-bottom:22px}
+  .chapstage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                 opacity:0;will-change:opacity,filter}
+  .chapstage img.on{opacity:1}
+  .chapstage img.lv{z-index:2}
+  .chapstage img.ent{z-index:1}
+  .sandsvg{position:absolute;width:0;height:0;overflow:hidden}
+  @media(prefers-reduced-motion:reduce){
+    .chapstage img{transition:opacity .5s ease;filter:none !important}
+  }
+  .chapstage .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;
+                  background:linear-gradient(to top,rgba(14,31,56,.9),transparent);
+                  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+                  text-transform:uppercase;color:#fff}
+  .chapnote{margin-top:14px;font-size:15px;max-width:46ch}
+
+  /* GALLERY */
+  .gal{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .gal div{aspect-ratio:4/3;border-radius:6px;background:#EFF1F4;border:1px dashed var(--line);
+           display:flex;align-items:center;justify-content:center;color:#B4BCC5;
+           font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase}
+
+  /* FORM */
+  .formwrap{background:#fff;border:1px solid var(--line);border-radius:10px;padding:28px 22px;
+            margin-top:38px;box-shadow:0 10px 40px rgba(14,31,56,.07)}
+  .fgrid{display:grid;grid-template-columns:1fr;gap:15px}
+  .field label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;
+               text-transform:uppercase;color:var(--navy);margin-bottom:8px}
+  .field input,.field select,.field textarea{
+    width:100%;border:0;border-bottom:1.5px solid var(--line);border-radius:0;padding:10px 2px;
+    font-size:16px;font-family:inherit;color:var(--ink);background:transparent;transition:border-color .3s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+  .field textarea{min-height:88px;resize:vertical}
+  .full{grid-column:1 / -1}
+  .formwrap .btn{width:100%;margin-top:26px;background:var(--blue);color:#fff}
+  .formwrap .btn:hover{background:var(--blue-dk);box-shadow:0 6px 0 rgba(14,31,56,.12)}
+  .fineprint{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;
+             text-transform:uppercase;color:#98A2AC;margin-top:16px;text-align:center}
+  .hp{position:absolute;left:-9999px}
+
+  /* CONTACT */
+  .contact{margin-top:38px;border-top:1px solid rgba(255,255,255,.14)}
+  .contact a{display:flex;justify-content:space-between;align-items:center;gap:16px;
+             padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14);color:#fff;
+             font-size:19px;font-weight:500;letter-spacing:-.02em;transition:padding .35s var(--ease)}
+  .contact a:hover{padding-left:8px}
+  .contact a span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;
+                  text-transform:uppercase;color:var(--blue);flex:0 0 78px}
+
+  /* FOOTER */
+  footer{background:#0A1728;padding:44px 0 30px}
+  footer .top{display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+  footer img{height:52px;width:auto}
+  footer .meta{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;
+               text-transform:uppercase;color:#5D7089}
+  .footrow{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
+           display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+           font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;
+           text-transform:uppercase;color:#5D7089}
+  .footrow a{color:#8DA2BC}
+
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(14,31,56,.97);
+          padding:11px 16px;border-top:1px solid rgba(255,255,255,.1)}
+  .sticky .btn{width:100%;text-align:center;background:var(--blue);color:#fff;padding:14px}
+  body{padding-bottom:74px}
+
+  @media(min-width:700px){
+    .fgrid{grid-template-columns:1fr 1fr}
+    .gal{grid-template-columns:repeat(3,1fr)}
+    .hero .rail{grid-template-columns:repeat(4,1fr)}
+  }
+  @media(min-width:1000px){
+    header nav{display:flex}
+    .burger{display:none}
+    section{padding:104px 0}
+    .pinin h1{font-size:44px}
+    .pinin .mark{width:min(46vw,470px)}
+    .ticker{padding:0 22px 40px}
+    .bars{bottom:24px}
+    .display{font-size:52px}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+    .chapters{flex-direction:row;gap:48px;align-items:start}
+    .chapstage{flex:0 0 42%;margin-bottom:0;position:sticky;top:100px}
+    .chaplist{flex:1}
+    .chap h3{font-size:31px}
+    .formwrap{padding:44px 42px}
+    .formwrap .btn{width:auto;min-width:250px;display:block;margin:26px auto 0}
+    .sticky{display:none}
+    body{padding-bottom:0}
+    footer .top{flex-direction:row;justify-content:space-between;align-items:flex-end}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="/"><img class="logo" src="images/logo-white.png" alt="Escape Bros"></a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#trips">What we organise</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <a href="#enquire" class="navcta">Plan your trip</a>
+    </nav>
+    <button class="burger" id="bg" aria-label="Menu"><span></span><span></span></button>
+  </div>
+  <div id="mob">
+    <a href="#how">How it works</a>
+    <a href="#trips">What we organise</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#enquire">Plan your trip</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="stage" id="stage">
+  <div class="pin">
+    <div class="layers" id="layers">
+      <img src="images/bg-golf.jpg" alt="" data-i="0">
+      <img src="images/bg-sports.jpg" alt="" data-i="1">
+      <img src="images/bg-magic.jpg" alt="" data-i="2">
+      <img src="images/bg-surf.jpg" alt="" data-i="3">
+      <img src="images/bg-fight.jpg" alt="" data-i="4">
+    </div>
+    <div class="tint"></div>
+    <div class="vig"></div>
+
+    <div class="pinin">
+      <img class="mark" src="images/logo-white.png" alt="Escape Bros">
+      <h1>Getting the crew together is the easy part.</h1>
+      <div class="btns">
+        <a href="#enquire" class="btn">Plan your trip</a>
+        <a href="#trips" class="btn ghost">See what we organise</a>
+      </div>
+    </div>
+
+    <div class="ticker">
+      <div class="now"><span id="hnum">01 / 05</span><b id="hname">Golf weekend</b></div>
+      <div class="cue"><i></i> Keep scrolling</div>
+    </div>
+    <div class="bars" id="bars">
+      <span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span>
+    </div>
+  </div>
+</div>
+
+<!-- 01 THE PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <div class="idx"><span class="n">01</span><span class="l"></span><span class="t">For the bloke stuck with the group chat</span></div>
+        <h2 class="display">You know how this usually goes.</h2>
+      </div>
+      <div class="reveal d1">
+        <ul class="pain" style="margin-top:0">
+          <li><span class="n">i</span><p>Twelve blokes, four opinions, nobody booking anything.</p></li>
+          <li><span class="n">ii</span><p>You front the accommodation and spend a month chasing everyone for money.</p></li>
+          <li><span class="n">iii</span><p>Tickets sell out while the group is still deciding on dates.</p></li>
+        </ul>
+        <p class="sub">Send it to us instead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 HOW IT WORKS -->
+<section class="dark" id="how">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx"><span class="n">02</span><span class="l"></span><span class="t">How it works</span></div>
+      <h2 class="display">Three steps and you're done.</h2>
+    </div>
+    <div class="steps reveal d1">
+      <div class="step">
+        <span class="n">Step 01</span>
+        <h3>Tell us the plan</h3>
+        <p>Where, when, how many, roughly what you want to spend.</p>
+      </div>
+      <div class="step">
+        <span class="n">Step 02</span>
+        <h3>We put it together</h3>
+        <p>Accommodation, tickets, transport and everything else. One plan, one price.</p>
+      </div>
+      <div class="step">
+        <span class="n">Step 03</span>
+        <h3>You send the group chat a link</h3>
+        <p>Everyone pays their own way. No spreadsheet, no chasing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WHAT WE ORGANISE -->
+<section id="trips">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx"><span class="n">03</span><span class="l"></span><span class="t">What we organise</span></div>
+      <h2 class="display">No packages. Just tell us the plan.</h2>
+      <p class="sub">Hunter Valley golf, eight blokes, third weekend in August. That is all we need.</p>
+    </div>
+
+    <div class="chapters reveal d1">
+      <div class="chapstage">
+        <img src="images/trip-golf.jpg" alt="Golf weekend organised by Escape Bros" data-i="0" class="on">
+        <img src="images/trip-sports.jpg" alt="Sports weekend organised by Escape Bros" data-i="1">
+        <img src="images/trip-magic-round.jpg" alt="Magic Round weekend organised by Escape Bros" data-i="2">
+        <img src="images/trip-surf.jpg" alt="Surf trip organised by Escape Bros" data-i="3">
+        <img src="images/trip-fight-night.jpg" alt="Fight night organised by Escape Bros" data-i="4">
+        <div class="cap" id="cap">01 / 06 &nbsp;&mdash;&nbsp; Golf Weekend</div>
+      </div>
+      <div class="chaplist" id="chaps">
+        <div class="chap on" data-i="0"><span class="n">01</span><h3>Golf Weekend</h3><span class="arw">&#8599;</span></div>
+        <div class="chap" data-i="1"><span class="n">02</span><h3>Sports Weekend</h3><span class="arw">&#8599;</span></div>
+        <div class="chap" data-i="2"><span class="n">03</span><h3>Magic Round</h3><span class="arw">&#8599;</span></div>
+        <div class="chap" data-i="3"><span class="n">04</span><h3>Surf Trip</h3><span class="arw">&#8599;</span></div>
+        <div class="chap" data-i="4"><span class="n">05</span><h3>Fight Night</h3><span class="arw">&#8599;</span></div>
+        <div class="chap" data-i="5"><span class="n">06</span><h3>Something Else</h3><span class="arw">&#8599;</span></div>
+        <p class="chapnote" id="note">Tee times, accommodation and transport. You pick the course, we sort the rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 GALLERY -->
+<section class="dark" id="gallery">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx"><span class="n">04</span><span class="l"></span><span class="t">Gallery</span></div>
+      <h2 class="display">Trips we've already run.</h2>
+      <p class="sub">Photos from weekends we have put together.</p>
+    </div>
+    <!-- PLACEHOLDER: swap each div for <img src="images/gallery-1.jpg" alt="..."> once photos exist.
+         Delete this whole section if the site goes live before there are any. -->
+    <div class="gal reveal d1">
+      <div>Photo 01</div><div>Photo 02</div><div>Photo 03</div>
+      <div>Photo 04</div><div>Photo 05</div><div>Photo 06</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ENQUIRE -->
+<section id="enquire">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx"><span class="n">05</span><span class="l"></span><span class="t">Enquire</span></div>
+      <h2 class="display">Tell us what you're planning.</h2>
+      <p class="sub">Two minutes. We come back with a plan and a price per head.</p>
+    </div>
+
+    <div class="formwrap reveal d1">
+      <!-- REPLACE xxxxxxxx WITH YOUR FORMSPREE FORM ID -->
+      <form action="https://formspree.io/f/xxxxxxxx" method="POST">
+        <input type="hidden" name="_next" value="https://escapebros.com.au/thank-you">
+        <input type="hidden" name="_subject" value="New Escape Bros enquiry">
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
+
+        <div class="fgrid">
+          <div class="field"><label for="name">Your name</label>
+            <input type="text" id="name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email"></div>
+          <div class="field"><label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="04XX XXX XXX"></div>
+          <div class="field"><label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="Where do you want to go?"></div>
+          <div class="field"><label for="group-size">Number of people</label>
+            <input type="number" id="group-size" name="number of people" min="2" required placeholder="e.g. 12"></div>
+          <div class="field"><label for="dates">Date</label>
+            <input type="text" id="dates" name="date" required placeholder="e.g. 20/12/2026, or just a month"></div>
+          <div class="field"><label for="trip-type">Trip type</label>
+            <select id="trip-type" name="trip type" required>
+              <option value="">Select one</option>
+              <option>Golf weekend</option>
+              <option>Sports weekend</option>
+              <option>Magic Round</option>
+              <option>Surf trip</option>
+              <option>Fight night</option>
+              <option>Bucks weekend</option>
+              <option>Corporate escape</option>
+              <option>Something else</option>
+            </select></div>
+          <div class="field"><label for="budget">Budget range per person</label>
+            <select id="budget" name="budget range" required>
+              <!-- PLACEHOLDER: confirm these bands with Mitch before launch -->
+              <option value="">Select a range</option>
+              <option>Under $500</option>
+              <option>$500 to $1,000</option>
+              <option>$1,000 to $2,000</option>
+              <option>$2,000 to $3,500</option>
+              <option>$3,500 plus</option>
+              <option>Not sure yet</option>
+            </select></div>
+          <div class="field full"><label for="activities">Activities involved</label>
+            <textarea id="activities" name="activities" placeholder="e.g. Golf, nightlife, sightseeing"></textarea></div>
+          <div class="field full"><label for="handle">How much do you want us to handle?</label>
+            <select id="handle" name="how much to handle">
+              <option value="">Select one</option>
+              <option>The lot, organise everything</option>
+              <option>Accommodation and transport only</option>
+              <option>Tickets and activities only</option>
+              <option>Not sure, talk me through it</option>
+            </select></div>
+        </div>
+
+        <button type="submit" class="btn">Send enquiry</button>
+        <p class="fineprint">Your details are safe with us &middot; We reply within one business day</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 06 CONTACT -->
+<section class="dark" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx"><span class="n">06</span><span class="l"></span><span class="t">Contact</span></div>
+      <h2 class="display">Or just get in touch.</h2>
+    </div>
+    <!-- PLACEHOLDER: confirm phone number and Instagram handle with Mitch -->
+    <div class="contact reveal d1">
+      <a href="tel:+61400000000"><span>Phone</span>0400 000 000</a>
+      <a href="mailto:info@escapebros.com.au"><span>Email</span>info@escapebros.com.au</a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener"><span>Instagram</span>@escapebros</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="images/logo-white.png" alt="Escape Bros">
+      <div class="meta" style="color:#5D7089">We organise. You enjoy.</div>
+    </div>
+    <div class="footrow">
+      <span>&copy; 2026 Escape Bros &middot; ABN 22 775 662 561</span>
+      <span><a href="/privacy">Privacy</a> &nbsp;&middot;&nbsp; <a href="https://latitudemarketing.au" target="_blank" rel="noopener">Site by Latitude</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky"><a href="#enquire" class="btn">Plan your trip</a></div>
+
+<svg class="sandsvg" aria-hidden="true">
+  <defs>
+    <filter id="sandOut" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="4" seed="7" result="nz"/>
+      <feDisplacementMap in="SourceGraphic" in2="nz" scale="0" xChannelSelector="R" yChannelSelector="G" result="dm"/>
+      <feOffset in="dm" dx="0" dy="0" result="of"/>
+      <feGaussianBlur in="of" stdDeviation="0" result="bl"/>
+      <feColorMatrix in="bl" type="matrix" result="cm"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="sandIn" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="4" seed="19" result="nz2"/>
+      <feDisplacementMap in="SourceGraphic" in2="nz2" scale="0" xChannelSelector="R" yChannelSelector="G" result="dm2"/>
+      <feOffset in="dm2" dx="0" dy="0" result="of2"/>
+      <feGaussianBlur in="of2" stdDeviation="0" result="bl2"/>
+      <feColorMatrix in="bl2" type="matrix" result="cm2"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+  </defs>
+</svg>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Escape Bros",
+"slogan":"We organise. You enjoy.",
+"description":"Group trips and event weekends organised end to end. Golf weekends, footy trips, Magic Round, surf trips and corporate escapes.",
+"url":"https://escapebros.com.au/","image":"https://escapebros.com.au/images/trip-golf.jpg",
+"email":"info@escapebros.com.au","areaServed":"AU"}
+</script>
+
+<script>
+  // mobile menu
+  var bg=document.getElementById('bg'), mob=document.getElementById('mob');
+  bg.addEventListener('click',function(){bg.classList.toggle('on');mob.classList.toggle('on');});
+  mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
+    bg.classList.remove('on');mob.classList.remove('on');});});
+
+  // scroll reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'-40px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // hero scroll stage
+  (function(){
+    var stage=document.getElementById('stage');
+    if(!stage) return;
+    var ls=document.querySelectorAll('#layers img'),
+        bars=document.querySelectorAll('#bars i'),
+        hnum=document.getElementById('hnum'), hname=document.getElementById('hname'),
+        N=ls.length, last=-1, tick=false;
+    var titles=['Golf weekend','Sports weekend','Magic Round','Surf trip','Fight night'];
+    function draw(){
+      tick=false;
+      var r=stage.getBoundingClientRect(), vh=window.innerHeight;
+      var total=stage.offsetHeight-vh;
+      var p=Math.min(Math.max(-r.top/total,0),1);
+      var pos=p*(N-1);
+      for(var i=0;i<N;i++){
+        var d=Math.abs(pos-i), o=Math.max(0,1-d);
+        ls[i].style.opacity=o.toFixed(3);
+        ls[i].style.transform='scale('+(1.10-0.06*o).toFixed(3)+')';
+        bars[i].style.width=(Math.min(Math.max(pos-i+1,0),1)*100).toFixed(1)+'%';
+      }
+      var idx=Math.round(pos);
+      if(idx!==last){last=idx;hnum.textContent='0'+(idx+1)+' / 0'+N;hname.textContent=titles[idx];}
+    }
+    window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(draw);}},{passive:true});
+    window.addEventListener('resize',draw);
+    draw();
+  })();
+
+  // trip chapters with sand dissolve
+  var notes=[
+    'Tee times, accommodation and transport. You pick the course, we sort the rest.',
+    'Tickets, seats together and somewhere to stay. Any code, any city.',
+    'Three days, every game, one city. Get in early and we handle the rest.',
+    'Boards, boats and a break worth the flight.',
+    'Seats, dinner and a big night out around the main event.',
+    'Punters clubs, bucks weekends, corporate escapes. If it involves a group, send it through.'
+  ];
+  var names=['Golf Weekend','Sports Weekend','Magic Round','Surf Trip','Fight Night','Something Else'];
+  var chaps=document.querySelectorAll('.chap'), imgs=document.querySelectorAll('.chapstage img'),
+      note=document.getElementById('note'), cap=document.getElementById('cap'),
+      cur=0, timer, busy=false;
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var q=function(f,t){return document.querySelector('#'+f+' '+t);};
+  var fx={
+    out:{dm:q('sandOut','feDisplacementMap'),of:q('sandOut','feOffset'),
+         bl:q('sandOut','feGaussianBlur'),cm:q('sandOut','feColorMatrix')},
+    "in":{dm:q('sandIn','feDisplacementMap'),of:q('sandIn','feOffset'),
+         bl:q('sandIn','feGaussianBlur'),cm:q('sandIn','feColorMatrix')}
+  };
+
+  function alpha(f,a){
+    f.cm.setAttribute('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 '+a.toFixed(3)+' 0');
+  }
+  // p 0 to 1, how far through the dissolve
+  function paintOut(p){
+    fx.out.dm.setAttribute('scale', (120*p).toFixed(1));
+    fx.out.of.setAttribute('dy', (120*p).toFixed(1));
+    fx.out.of.setAttribute('dx', (30*p).toFixed(1));
+    fx.out.bl.setAttribute('stdDeviation', (3*p).toFixed(2));
+    alpha(fx.out, Math.max(0, 1-p*1.2));
+  }
+  function paintIn(p){
+    var r=1-p;
+    fx["in"].dm.setAttribute('scale', (120*r).toFixed(1));
+    fx["in"].of.setAttribute('dy', (-80*r).toFixed(1));
+    fx["in"].of.setAttribute('dx', (-30*r).toFixed(1));
+    fx["in"].bl.setAttribute('stdDeviation', (3*r).toFixed(2));
+    alpha(fx["in"], Math.min(1, p*1.2));
+  }
+
+  function set(i){
+    if(i===cur || busy) return;
+    var from=imgs[Math.min(cur,4)], to=imgs[Math.min(i,4)];
+    cur=i;
+    chaps.forEach(function(c){c.classList.toggle('on', +c.dataset.i===i);});
+    note.textContent=notes[i];
+    cap.innerHTML=('0'+(i+1))+' / 06 &nbsp;&mdash;&nbsp; '+names[i];
+
+    if(from===to){return;}
+
+    if(reduce){
+      imgs.forEach(function(m){m.classList.remove('on','lv','ent');m.style.filter='';});
+      to.classList.add('on'); return;
+    }
+
+    busy=true;
+    var DUR=850, t0=null;
+    from.classList.add('lv'); from.style.filter='url(#sandOut)';
+    to.classList.add('ent','on'); to.style.filter='url(#sandIn)';
+    paintOut(0); paintIn(0);
+
+    function frame(ts){
+      if(!t0) t0=ts;
+      var t=Math.min((ts-t0)/DUR,1);
+      paintOut(Math.pow(t,3));            // cubic, holds then goes
+      paintIn(1-Math.pow(1-t,4));         // quartic ease out
+      if(t<1){requestAnimationFrame(frame);}
+      else{
+        from.classList.remove('on','lv'); from.style.filter='';
+        to.classList.remove('ent'); to.style.filter='';
+        busy=false;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  chaps.forEach(function(c){
+    c.addEventListener('click',function(){set(+c.dataset.i);clearInterval(timer);});
+  });
+  timer=setInterval(function(){set((cur+1)%6);},4600);
+</script>
+
+</body>
+</html>
