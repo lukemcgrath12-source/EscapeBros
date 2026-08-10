@@ -109,14 +109,15 @@
   /* HERO, inset rounded media panel */
   .hero{position:relative;padding:170px 0 96px}
   .hmedia{position:absolute;inset:6px;border-radius:26px;overflow:hidden;background:var(--navy)}
+  .hmedia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .hmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
               opacity:0;will-change:opacity,filter}
   .hmedia img.on{opacity:1}
   .hmedia img.lv{z-index:2}
   .hmedia img.ent{z-index:1}
   .hmedia .sc{position:absolute;inset:0;z-index:3;
-              background:linear-gradient(100deg,rgba(9,26,48,.90) 0%,rgba(9,26,48,.62) 46%,
-                         rgba(9,26,48,.30) 100%)}
+              background:linear-gradient(100deg,rgba(9,26,48,.92) 0%,rgba(9,26,48,.74) 42%,
+                         rgba(9,26,48,.34) 100%)}
   .hin{position:relative;z-index:5;max-width:1240px;margin:0 auto;padding:0 30px;color:#fff}
   .hin .eyeb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
              color:rgba(255,255,255,.72);margin-bottom:18px}
@@ -385,11 +386,10 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hmedia" id="hmedia">
-    <img src="bg-golf.jpg" alt="" data-i="0" class="on">
-    <img src="bg-sports.jpg" alt="" data-i="1">
-    <img src="bg-magic.jpg" alt="" data-i="2">
-    <img src="bg-surf.jpg" alt="" data-i="3">
-    <img src="bg-fight.jpg" alt="" data-i="4">
+    <video autoplay loop muted playsinline preload="metadata"
+           poster="hero-poster.jpg" id="hvid">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
     <div class="sc"></div>
   </div>
   <div class="hin">
@@ -714,44 +714,13 @@
     });
   })();
 
-  // hero media, auto rotating with the sand dissolve
+  // pause the hero video when it scrolls out of view
   (function(){
-    var box=document.getElementById('hmedia'); if(!box) return;
-    var ims=box.querySelectorAll('img'), i=0, busy=false,
-        reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var g=function(f,t){return document.querySelector('#'+f+' '+t);};
-    var F={o:{d:g('sandOut','feDisplacementMap'),f:g('sandOut','feOffset'),
-              b:g('sandOut','feGaussianBlur'),c:g('sandOut','feColorMatrix')},
-           i:{d:g('sandIn','feDisplacementMap'),f:g('sandIn','feOffset'),
-              b:g('sandIn','feGaussianBlur'),c:g('sandIn','feColorMatrix')}};
-    if(!F.o.d) return;
-    function al(x,a){x.c.setAttribute('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 '+a.toFixed(3)+' 0');}
-    function go(n){
-      if(n===i||busy) return;
-      var from=ims[i], to=ims[n]; i=n;
-      if(reduce){ims.forEach(function(m){m.classList.remove('on','lv','ent');m.style.filter='';});
-                 to.classList.add('on'); return;}
-      busy=true; var DUR=850,t0=null;
-      from.classList.add('lv'); from.style.filter='url(#sandOut)';
-      to.classList.add('ent','on'); to.style.filter='url(#sandIn)';
-      function step(ts){
-        if(!t0)t0=ts;
-        var t=Math.min((ts-t0)/DUR,1), p=Math.pow(t,3), r=1-Math.pow(1-t,4), q=1-r;
-        F.o.d.setAttribute('scale',(120*p).toFixed(1));
-        F.o.f.setAttribute('dy',(120*p).toFixed(1));
-        F.o.b.setAttribute('stdDeviation',(3*p).toFixed(2));
-        al(F.o, Math.max(0,1-p*1.2));
-        F.i.d.setAttribute('scale',(120*q).toFixed(1));
-        F.i.f.setAttribute('dy',(-80*q).toFixed(1));
-        F.i.b.setAttribute('stdDeviation',(3*q).toFixed(2));
-        al(F.i, Math.min(1,r*1.2));
-        if(t<1){requestAnimationFrame(step);}
-        else{from.classList.remove('on','lv');from.style.filter='';
-             to.classList.remove('ent');to.style.filter='';busy=false;}
-      }
-      requestAnimationFrame(step);
-    }
-    setInterval(function(){go((i+1)%ims.length);},4200);
+    var v=document.getElementById('hvid'); if(!v) return;
+    if(!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.isIntersecting ? v.play().catch(function(){}) : v.pause(); });
+    },{threshold:.05}).observe(v);
   })();
 
   // trip chapters with sand dissolve
