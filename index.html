@@ -86,7 +86,9 @@
   }
 
   /* NAV, floating pill that frosts on scroll */
-  header{position:fixed;top:0;left:0;right:0;z-index:60;padding-top:14px;background:none}
+  header{position:fixed;top:0;left:0;right:0;z-index:60;padding-top:14px;background:none;
+          transition:transform .4s var(--ease),padding .3s var(--ease)}
+  header.hide{transform:translateY(-118%)}
   header .bar{max-width:1240px;margin:0 auto;border-radius:22px;padding:0 16px;flex-wrap:nowrap;
               transition:background .35s var(--ease),backdrop-filter .35s var(--ease),padding .3s var(--ease);
               display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -107,8 +109,9 @@
   #mob a{display:block;padding:14px 24px;color:#C6D3E2;font-size:15px;font-weight:500}
 
   /* HERO, inset rounded media panel */
-  .hero{position:relative;padding:170px 0 96px}
-  .hmedia{position:absolute;inset:6px;border-radius:26px;overflow:hidden;background:var(--navy)}
+  .hero{position:relative;padding:118px 0 26px;min-height:86svh;display:flex;align-items:center}
+  @supports not (height:1svh){ .hero{min-height:86vh} }
+  .hmedia{position:absolute;inset:8px;border-radius:22px;overflow:hidden;background:var(--navy)}
   .hmedia video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .hmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
               opacity:0;will-change:opacity,filter}
@@ -118,7 +121,7 @@
   .hmedia .sc{position:absolute;inset:0;z-index:3;
               background:linear-gradient(100deg,rgba(9,26,48,.92) 0%,rgba(9,26,48,.74) 42%,
                          rgba(9,26,48,.34) 100%)}
-  .hin{position:relative;z-index:5;max-width:1240px;margin:0 auto;padding:0 30px;color:#fff}
+  .hin{position:relative;z-index:5;max-width:1240px;margin:0 auto;padding:0 26px;color:#fff;width:100%}
   .hin .eyeb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
              color:rgba(255,255,255,.72);margin-bottom:18px}
   .hin h1{color:#fff;font-size:40px;line-height:1.02;letter-spacing:-.035em;max-width:14ch}
@@ -140,9 +143,13 @@
   .strip .lab{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
               color:#8B949E;text-align:center}
   .track{position:relative;width:100%;overflow:hidden}
-  .track .lane{display:flex;gap:14px;width:max-content;animation:slide 34s linear infinite}
-  .track:hover .lane{animation-duration:70s}
-  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 7px))}}
+  .track .lane{display:flex;gap:14px;width:max-content;will-change:transform;
+               animation:slide 34s linear infinite;-webkit-animation:slide 34s linear infinite}
+  @media (hover:hover){ .track:hover .lane{animation-duration:70s} }
+  @keyframes slide{from{transform:translate3d(0,0,0)}
+                   to{transform:translate3d(calc(-50% - 7px),0,0)}}
+  @-webkit-keyframes slide{from{-webkit-transform:translate3d(0,0,0)}
+                   to{-webkit-transform:translate3d(calc(-50% - 7px),0,0)}}
   .track .lane img{height:112px;width:auto;border-radius:10px;display:block;
                    box-shadow:0 8px 22px rgba(14,31,56,.12)}
   .fade{position:absolute;top:0;bottom:0;width:86px;pointer-events:none;z-index:3}
@@ -248,7 +255,9 @@
   .footrow a{color:#8DA2BC}
 
   .sticky{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(14,31,56,.97);
-          padding:11px 16px;border-top:1px solid rgba(255,255,255,.1)}
+          padding:11px 16px;border-top:1px solid rgba(255,255,255,.1);
+          transition:transform .4s var(--ease),opacity .3s ease}
+  .sticky.tuck{transform:translateY(110%);opacity:0;pointer-events:none}
   .sticky .btn{width:100%;text-align:center;background:var(--blue);color:#fff;padding:14px}
   body{padding-bottom:74px}
 
@@ -263,7 +272,7 @@
     header nav{display:flex}
     .burger{display:none}
     header .bar{padding:0 30px}
-    .hero{padding:230px 0 130px}
+    .hero{padding:200px 0 120px;min-height:0;display:block}
     .hmedia{inset:10px;border-radius:44px}
     .hin{padding:0 54px}
     .hin h1{font-size:68px}
@@ -661,11 +670,29 @@
     setTimeout(lift, 5000);   // never trap anyone if an asset stalls
   })();
 
-  // nav frosts after a little scroll
+  // nav frosts, then hides going down and returns coming up
   (function(){
-    var h=document.querySelector('header');
-    function chk(){h.classList.toggle('scrolled', window.scrollY > window.innerHeight*0.05);}
-    window.addEventListener('scroll',chk,{passive:true}); chk();
+    var h=document.querySelector('header'), last=0, tick=false;
+    function chk(){
+      tick=false;
+      var y=window.scrollY;
+      h.classList.toggle('scrolled', y > window.innerHeight*0.05);
+      if(y > 220 && y > last + 6){ h.classList.add('hide'); }
+      else if(y < last - 6 || y < 120){ h.classList.remove('hide'); }
+      last=y;
+    }
+    window.addEventListener('scroll',function(){
+      if(!tick){tick=true;requestAnimationFrame(chk);}
+    },{passive:true}); chk();
+  })();
+
+  // sticky CTA tucks away once the form is on screen
+  (function(){
+    var bar=document.querySelector('.sticky'), form=document.getElementById('enquire');
+    if(!bar||!form||!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ bar.classList.toggle('tuck', e.isIntersecting); });
+    },{threshold:.12}).observe(form);
   })();
 
   // progressive blur on the marquee edges, stacked mask layers
