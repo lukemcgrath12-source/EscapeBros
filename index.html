@@ -2,6 +2,15 @@
 <html lang="en-AU" class="loading">
 <head>
 <meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0WLT33PGBB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0WLT33PGBB');
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Escape Bros | Group Trips and Event Weekends Organised for You</title>
 <meta name="description" content="Golf weekends, footy trips, Magic Round, surf trips and corporate escapes. Tell us where, when and how many. We handle the rest.">
@@ -525,29 +534,17 @@
             <input type="text" id="name" name="name" required autocomplete="name"></div>
           <div class="field"><label for="email">Email</label>
             <input type="email" id="email" name="email" required autocomplete="email"></div>
-          <div class="field"><label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="04XX XXX XXX"></div>
-          <div class="field"><label for="destination">Destination</label>
-            <input type="text" id="destination" name="destination" placeholder="Where do you want to go?"></div>
-          <div class="field"><label for="group-size">Number of people</label>
-            <input type="number" id="group-size" name="number of people" min="2" required placeholder="e.g. 12"></div>
-          <div class="field"><label for="dates">Date</label>
-            <input type="text" id="dates" name="date" required placeholder="e.g. 20/12/2026, or just a month"></div>
-          <div class="field"><label for="trip-type">Trip type</label>
-            <select id="trip-type" name="trip type" required>
-              <option value="">Select one</option>
-              <option>Golf weekend</option>
-              <option>Sports weekend</option>
-              <option>Magic Round</option>
-              <option>Surf trip</option>
-              <option>Fight night</option>
-              <option>Bucks weekend</option>
-              <option>Corporate escape</option>
-              <option>Something else</option>
-            </select></div>
-          <div class="field"><label for="budget">Budget range per person</label>
-            <select id="budget" name="budget range" required>
-              <!-- PLACEHOLDER: confirm these bands with Mitch before launch -->
+          <div class="field"><label for="destination">Where are you thinking?</label>
+            <input type="text" id="destination" name="destination"
+                   placeholder="Or leave it blank and we will suggest somewhere"></div>
+          <div class="field"><label for="dates">When</label>
+            <input type="text" id="dates" name="when" required
+                   placeholder="A month is enough"></div>
+          <div class="field"><label for="group-size">How many of you</label>
+            <input type="number" id="group-size" name="group size" min="2" required
+                   placeholder="e.g. 12"></div>
+          <div class="field"><label for="budget">Rough budget per person</label>
+            <select id="budget" name="budget per person" required>
               <option value="">Select a range</option>
               <option>Under $500</option>
               <option>$500 to $1,000</option>
@@ -556,16 +553,12 @@
               <option>$3,500 plus</option>
               <option>Not sure yet</option>
             </select></div>
-          <div class="field full"><label for="activities">Activities involved</label>
-            <textarea id="activities" name="activities" placeholder="e.g. Golf, nightlife, sightseeing"></textarea></div>
-          <div class="field full"><label for="handle">How much do you want us to handle?</label>
-            <select id="handle" name="how much to handle">
-              <option value="">Select one</option>
-              <option>The lot, organise everything</option>
-              <option>Accommodation and transport only</option>
-              <option>Tickets and activities only</option>
-              <option>Not sure, talk me through it</option>
-            </select></div>
+          <div class="field full"><label for="notes">Anything else we should know</label>
+            <textarea id="notes" name="notes" rows="3"
+                      placeholder="Bucks weekend, punters club, corporate, golf, footy, whatever it is"></textarea></div>
+          <div class="field full"><label for="phone">Phone, optional</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel"
+                   placeholder="Quicker if we need to ask something"></div>
         </div>
 
         <button type="submit" class="btn">Send enquiry</button>
@@ -582,11 +575,10 @@
       <div class="idx"><span class="n">05</span><span class="l"></span><span class="t">Contact</span></div>
       <h2 class="display">Or just get in touch.</h2>
     </div>
-    <!-- PLACEHOLDER: confirm phone number and Instagram handle with Mitch -->
     <div class="contact reveal d1">
-      <a href="tel:+61400000000"><span>Phone</span>0400 000 000</a>
+      <a href="tel:+61431966692"><span>Phone</span>0431 966 692</a>
       <a href="mailto:info@escapebros.com.au"><span>Email</span>info@escapebros.com.au</a>
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener"><span>Instagram</span>@escapebros</a>
+      <a href="https://www.instagram.com/escapebros.com.au/" target="_blank" rel="noopener"><span>Instagram</span>@escapebros.com.au</a>
     </div>
   </div>
 </section>
@@ -632,7 +624,8 @@
 "slogan":"We organise. You enjoy.",
 "description":"Group trips and event weekends organised end to end. Golf weekends, footy trips, Magic Round, surf trips and corporate escapes.",
 "url":"https://escapebros.com.au/","image":"https://escapebros.com.au/trip-golf.jpg",
-"email":"info@escapebros.com.au","areaServed":"AU"}
+"email":"info@escapebros.com.au","telephone":"+61431966692",
+"sameAs":["https://www.instagram.com/escapebros.com.au/"],"areaServed":"AU"}
 </script>
 
 <script>

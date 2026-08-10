@@ -2,6 +2,15 @@
 <html lang="en-AU">
 <head>
 <meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0WLT33PGBB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0WLT33PGBB');
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thanks, we've got it | Escape Bros</title>
 <meta name="description" content="Your enquiry has been sent to Escape Bros. We will come back to you within one business day.">
@@ -53,5 +62,13 @@
   <p class="foot">Need to add something? Email <a href="mailto:info@escapebros.com.au">info@escapebros.com.au</a></p>
 </div>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+  // fires once the enquiry has landed, this is the conversion
+  gtag('event', 'generate_lead', {
+    event_category: 'enquiry',
+    event_label: 'website enquiry form',
+    value: 1
+  });
+</script>
 </body>
 </html>
