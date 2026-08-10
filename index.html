@@ -68,10 +68,10 @@
   #pre .mk{width:min(64vw,300px);opacity:0;transform:translateY(14px) scale(.97);
            animation:preIn 1.1s cubic-bezier(.16,1,.3,1) .12s forwards}
   @keyframes preIn{to{opacity:1;transform:none}}
-  #pre .bar{width:min(48vw,190px);height:2px;background:rgba(255,255,255,.3);
+  #pre .pbar{width:min(48vw,190px);height:2px;background:rgba(255,255,255,.3);
             margin-top:30px;overflow:hidden;border-radius:2px;opacity:0;
             animation:preIn .6s ease .5s forwards}
-  #pre .bar i{display:block;height:100%;width:0;background:#fff;
+  #pre .pbar i{display:block;height:100%;width:0;background:#fff;
               animation:preBar 1.5s cubic-bezier(.4,0,.2,1) .5s forwards}
   @keyframes preBar{to{width:100%}}
   #pre .tag{margin-top:20px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
@@ -79,8 +79,8 @@
             animation:preIn .7s ease .75s forwards}
   html.loading{overflow:hidden}
   @media(prefers-reduced-motion:reduce){
-    #pre .mk,#pre .bar,#pre .tag{animation:none;opacity:1;transform:none}
-    #pre .bar i{animation:none;width:100%}
+    #pre .mk,#pre .pbar,#pre .tag{animation:none;opacity:1;transform:none}
+    #pre .pbar i{animation:none;width:100%}
     #pre{transition:opacity .3s ease}
     #pre.done{transform:none}
   }
@@ -275,8 +275,10 @@
     .hin h1{font-size:68px}
     .hin p{font-size:19px}
     .strip .row{flex-direction:row;gap:26px;align-items:center}
-    .strip .lab{flex:0 0 168px;text-align:right;border-right:1px solid var(--line);
-                padding-right:22px;line-height:1.5}
+    .strip .lab{flex:0 0 150px;text-align:right;border-right:1px solid var(--line);
+                padding-right:20px;line-height:1.4}
+    .strip .row{gap:22px}
+    .track{flex:1;min-width:0}
     .track .lane img{height:132px}
     .display{font-size:52px}
     .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
@@ -356,11 +358,11 @@
 
 <div id="pre">
   <img class="mk" src="logo-white.png" alt="Escape Bros">
-  <div class="bar"><i></i></div>
+  <div class="pbar"><i></i></div>
 </div>
 
 <header>
-  <div class="wrap">
+  <div class="bar">
     <a href="/"><img class="logo" src="logo-white.png" alt="Escape Bros"></a>
     <nav>
       <a href="#how">How it works</a>
