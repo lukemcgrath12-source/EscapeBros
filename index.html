@@ -337,6 +337,10 @@
   .field label{font-size:var(--t-label);letter-spacing:0;text-transform:none;
     font-weight:600;color:var(--navy);margin-bottom:7px}
   .field input,.field select,.field textarea{font-size:var(--t-body)}
+  .formerr{display:none;margin-top:14px;text-align:center;font-size:14px;color:#C0392B;
+           font-weight:500;line-height:1.5}
+  .formerr.on{display:block}
+  #ebsend[disabled]{opacity:.6;cursor:default;transform:none;box-shadow:none}
   .fineprint{font-size:var(--t-small);letter-spacing:0;text-transform:none;
     font-weight:400;color:#8B949E}
 
@@ -524,8 +528,7 @@
 
     <div class="formwrap reveal d1">
       <!-- Formspree: Escape Bros Enquiry -->
-      <form action="https://formspree.io/f/mdenezdd" method="POST">
-        <input type="hidden" name="_next" value="https://escapebros.com.au/thank-you">
+      <form action="https://formspree.io/f/mdenezdd" method="POST" id="ebform">
         <input type="hidden" name="_subject" value="New Escape Bros enquiry">
         <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
 
@@ -561,7 +564,8 @@
                    placeholder="Quicker if we need to ask something"></div>
         </div>
 
-        <button type="submit" class="btn">Send enquiry</button>
+        <button type="submit" class="btn" id="ebsend">Send enquiry</button>
+        <p class="formerr" id="eberr" role="alert"></p>
         <p class="fineprint">Your details are safe with us &middot; We reply within one business day</p>
       </form>
     </div>
@@ -703,6 +707,36 @@
         el.style.webkitBackdropFilter='blur('+(i*0.6)+'px)';
         host.appendChild(el);
       }
+    });
+  })();
+
+  // submit the enquiry in the background, then go to our own thank you page
+  (function(){
+    var f=document.getElementById('ebform');
+    if(!f || !window.fetch) return;          // no fetch, fall back to a normal POST
+    var btn=document.getElementById('ebsend'), err=document.getElementById('eberr');
+    var label=btn ? btn.textContent : 'Send enquiry';
+
+    f.addEventListener('submit', function(ev){
+      if(!f.checkValidity()) return;         // let the browser show its own messages
+      ev.preventDefault();
+      err.classList.remove('on'); err.textContent='';
+      if(btn){ btn.disabled=true; btn.textContent='Sending...'; }
+
+      fetch(f.action, {
+        method:'POST',
+        body:new FormData(f),
+        headers:{'Accept':'application/json'}
+      }).then(function(r){
+        if(r.ok){ window.location.href='/thank-you'; return; }
+        return r.json().then(function(d){
+          throw new Error((d && d.errors && d.errors[0] && d.errors[0].message) || 'failed');
+        });
+      }).catch(function(){
+        if(btn){ btn.disabled=false; btn.textContent=label; }
+        err.textContent='That did not send. Give it another go, or email info@escapebros.com.au and we will sort it.';
+        err.classList.add('on');
+      });
     });
   })();
 
