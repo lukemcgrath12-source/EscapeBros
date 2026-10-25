@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://escapebros.com.au/sitemap.xml
